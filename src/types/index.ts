@@ -73,7 +73,7 @@ export type PostStatsProps = {
 }
 
 export type GridPostListProps = {
-  posts: Models.Document[];
+  posts?: Models.Document[];
   showUser?: boolean;
   showStats?: boolean;
 };

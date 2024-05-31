@@ -9,7 +9,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 const Home = () => {
     const {data: posts, isPending: isPostLoading, isError: isErrorPosts} = useGetRecentPosts();
-    const {data: creators, isLoading: isUserLoading, isError: isErrorCreators} = useGetUsers(10);
+    const {data: creators, isLoading: isUserLoading, isError: isErrorCreators} = useGetUsers();
 
     //  const { user } = useUserContext();
 
@@ -26,7 +26,7 @@ const Home = () => {
       );
     }
 
-    const initialTopCreators = creators?.documents.filter((creator) => creator.posts?.length >= 2);
+    const initialTopCreators = creators?.documents.filter((creator) => creator.posts?.length >= 2) || [];
 
     initialTopCreators?.sort((a, b) => b.posts.length - a.posts.length);
 
@@ -41,7 +41,7 @@ const Home = () => {
     return (
       <div className="flex flex-1">
         <div className="home-container relative top-0">
-          {isUserLoading && !topCreators ? (
+          {isUserLoading && topCreators.length === 0 ? (
             <Loader />
           ) : (
             <Carousel
@@ -82,7 +82,7 @@ const Home = () => {
 
         <div className="home-creators">
           <h3 className="h3-bold text-light-1">Top Creators</h3>
-          {isUserLoading && !topCreators ? (
+          {isUserLoading && topCreators.length === 0 ? (
             <Loader />
           ) : (
             <ul className="grid 2xl:grid-cols-2 gap-6">
