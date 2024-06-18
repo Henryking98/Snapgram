@@ -1,11 +1,11 @@
 {
-  "version": 2,
-  "builds": [
+  "github": {
+    "silent": true
+  },
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
+      "source": "/(.*)",
+      "destination": "/"
     }
-  ],
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  ]
 }
